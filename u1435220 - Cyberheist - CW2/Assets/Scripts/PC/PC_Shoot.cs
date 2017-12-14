@@ -12,8 +12,12 @@ public class PC_Shoot : NetworkBehaviour
     [Header("Shooting Param")]
     public Transform bulletSpawn;
 
+    public bool BL_Staggered = false;
+
     void Update()
     {
+        
+
         if (Input.GetKeyDown(KeyCode.Space))
         {
             CmdFire(bulletPrefab);
