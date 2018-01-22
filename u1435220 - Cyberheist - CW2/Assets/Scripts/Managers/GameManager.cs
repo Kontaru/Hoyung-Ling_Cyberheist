@@ -8,14 +8,16 @@ public class GameManager : MonoBehaviour
 {
 
     public static GameManager instance;
-    private bool BL_SwitchScenes;
+    //private bool BL_SwitchScenes;
+
+    public int max_enemies = 20;
+    public int enemycount = 0;
 
     public int player_Health;
 
     [Header("Entities")]
 
     public GameObject[] GO_Player = new GameObject[2];
-    private Player[] Player = new Player[2];
 
     [Header("Lights")]
     public Light DirectionalLight;

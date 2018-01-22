@@ -10,15 +10,15 @@ abstract public class Bullet : MonoBehaviour
     //---------------------------------------------------------------------------
 
     //On collision with an object
-    Rigidbody RB_Bullet;
+    protected Rigidbody RB_Bullet;
 
     [Header("Bullet Variables")]
     public float speed;         //Speed of bullet
-    public float damage;          //Damage of bullet
+    public int damage;          //Damage of bullet
     public float killAfter;     //How long should the bullet persist for?
 
     [Header("Audio")]
-    public string audio;
+    public string sound;
 
     // Use this for initialization
     void Start()
@@ -32,7 +32,7 @@ abstract public class Bullet : MonoBehaviour
         Destroy(gameObject, killAfter);
 
         //Play some audio
-        AudioManager.instance.Play(audio);
+        AudioManager.instance.Play(sound);
     }
 
     #region Damage Sending

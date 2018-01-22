@@ -2,35 +2,68 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Networking;
 
-public class PC_Health : MonoBehaviour {
+public class PC_Health : NetworkBehaviour {
 
-    public int loadindex;
-    public int health = 4;
-    public static int max_health;
+    public const int maxHealth = 100;
 
-    // Use this for initialization
-    void Start () {
-        GameManager.instance.player_Health = health;
-        max_health = health;
-    }
+    public bool destroyOnDeath = true;
 
-    void TakeDamage(int damage)
+    //Calls a function whenever this value changes.
+    [SyncVar(hook = "OnChangeHealth")]
+    public int currentHealth = maxHealth;
+    public RectTransform healthBar;
+
+    public void TakeDamage(int amount)
     {
-        health -= damage;
-        GameManager.instance.player_Health = health;
-
-        if(health <= 0)
+        if (!isServer)
         {
-            GameManager.instance.LoadScene(loadindex);
+            return;
         }
 
-        AudioManager.instance.Play("BossDamage");
+        currentHealth -= amount;
+        if (currentHealth <= 0)
+        {
+            if (destroyOnDeath)
+            {
+                Destroy(gameObject);
+            }
+            else
+            {
+                StartCoroutine(Respawn());
+            }
+
+        }
+    }
+
+    IEnumerator Respawn()
+    {
+        yield return new WaitForSeconds(2.0f);
+        currentHealth = maxHealth;
+        RpcRespawn();
+    }
+
+    //This command is called by the client, and tells the server to do it.
+    [ClientRpc]
+    void RpcRespawn()
+    {
+        if (isLocalPlayer)
+        {
+            // move back to zero location
+            transform.position = Vector3.zero;
+        }
+    }
+
+    //This is a syncvar hook. When the syncvar ever changes value, this function will be called.
+    void OnChangeHealth(int health)
+    {
+        healthBar.sizeDelta = new Vector2(health, healthBar.sizeDelta.y);
     }
 
     void TakeHealth(int heal)
     {
-        health += heal;
+        currentHealth += heal;
         AudioManager.instance.Play("Heal");
     }
 }

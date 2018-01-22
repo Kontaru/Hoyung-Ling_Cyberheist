@@ -17,67 +17,82 @@ public class PC_Controller : Entity
     public float FL_StaggerTimer = 1.0f;
     public bool BL_IsMoving;
 
-    //Controllers
-    PC_Shoot CC_Shoot;
-    PC_Melee CC_Melee;
-    PC_Move CC_Move;
+    public bool BL_Moving;
+    Rigidbody RB_PC;
+    Vector3 direction;
+
+    ActiveGun activeGun;
+
+    [Header("Movement")]
+    float FL_moveSpeed = 20f;
+    float FL_defaultSpeed;
+
+    // Client Variables
+    [SyncVar]
+    private Vector3 V3_syncPos;
+    [SyncVar]
+    private float FL_syncYRot;
+    private float FL_lerpRate = 10f;
+
+    public override void OnStartLocalPlayer()
+    {
+        transform.GetChild(0).GetComponent<MeshRenderer>().material.color = Color.blue;
+    }
 
     // Use this for initialization
     void Start()
     {
-        //Telling the GameManager who the players are
-        for (int i = 0; i < GameManager.instance.GO_Player.Length; i++)
+        if (isServer)
         {
-            //For the current index, if it's empty
-            if (GameManager.instance.GO_Player[i] == null)
+            //Telling the GameManager who the players are
+            for (int i = 0; i < GameManager.instance.GO_Player.Length; i++)
             {
-                //Make the gameobject this, and quit the cycle of sadness
-                GameManager.instance.GO_Player[i] = gameObject;
-                Debug.Log("Player added");
-                break;
+                //For the current index, if it's empty
+                if (GameManager.instance.GO_Player[i] == null)
+                {
+                    //Make the gameobject this, and quit the cycle of sadness
+                    GameManager.instance.GO_Player[i] = gameObject;
+                    Debug.Log("Player added");
+                    break;
+                }
             }
         }
+
+        ////For the current index, if it's empty
+        //if (GameManager.instance.GO_Player[0] == null)
+        //{
+        //    //Make the gameobject this, and quit the cycle of sadness
+        //    GameManager.instance.GO_Player[0] = gameObject;
+        //    Debug.Log("Player added");
+        //}
+        //else if (GameManager.instance.GO_Player[1] == null)
+        //{
+        //    //Make the gameobject this, and quit the cycle of sadness
+        //    GameManager.instance.GO_Player[0] = gameObject;
+        //    Debug.Log("Player added");
+        //}
+        //else
+        //{
+        //    Debug.Log("No player added: too many players");
+        //}
 
         //If the camera is local player
         if (isLocalPlayer)
         {
             //From the camera follow script, set the reference to this game object.
             CameraFollow.PlayerRef = gameObject;
-        }
-
-        if (!isLocalPlayer)
+        }else if (!isLocalPlayer)
         {
             return;
         }
 
+        activeGun = GetComponent<ActiveGun>();
+        RB_PC = GetComponent<Rigidbody>();
+        FL_defaultSpeed = FL_moveSpeed;
+
         //When the player exists in the scene, the player will stop the theme and start playing the game BGM.
         AudioManager.instance.Stop("Theme");
         AudioManager.instance.Play("Game BGM");
-
-        //Grab some components - these components are what the brain wants to control
-        CC_Shoot = GetComponent<PC_Shoot>();
-        CC_Move = GetComponent<PC_Move>();
-        CC_Melee = GetComponent<PC_Melee>();
-
-        //Telling the GameManager who the players are
-        for (int i = 0; i < GameManager.instance.GO_Player.Length; i++)
-        {
-            //For the current index, if it's empty
-            if (GameManager.instance.GO_Player[i] == null)
-            {
-                //Make the gameobject this, and quit the cycle of sadness
-                GameManager.instance.GO_Player[i] = gameObject;
-                Debug.Log("Player added");
-                break;
-            }
-        }
-
-        //If the camera is local player
-        if (isLocalPlayer)
-        {
-            //From the camera follow script, set the reference to this game object.
-            CameraFollow.PlayerRef = gameObject;
-        }
     }
 
     // Update is called once per frame
@@ -88,39 +103,40 @@ public class PC_Controller : Entity
             return;
         }
 
-        BL_IsMoving = CC_Move.BL_Moving;
-        if (CC_Shoot.BL_Staggered == true)
-        {
-            BL_Staggered = CC_Shoot.BL_Staggered;
-            CC_Move.BL_Staggered = BL_Staggered;
-        }
+        PlayerMove();
+        LookInput();
 
-        if (CC_Move.BL_Staggered == true)
-        {
-            BL_Staggered = CC_Move.BL_Staggered;
-            CC_Melee.BL_Staggered = BL_Staggered;
-        }
+        activeGun.Shoot(KeyCode.Space);
 
-        if (BL_Staggered)
+        if (Input.GetKeyDown(KeyCode.Q))
         {
-            if (BL_StaggerToggle == false)
-            {
-                StartCoroutine(StaggerTimer(FL_StaggerTimer));
-                BL_StaggerToggle = true;
-            }
+            activeGun.Missile();
         }
     }
 
-    IEnumerator StaggerTimer(float delay)
+    private void FixedUpdate()
     {
-        yield return new WaitForSeconds(delay);
-        BL_Staggered = false;
-        CC_Move.BL_Staggered = BL_Staggered;
-        BL_StaggerToggle = false;
+        RB_PC.MovePosition(transform.position + direction * Time.fixedDeltaTime);
     }
 
-    public override void OnStartLocalPlayer()
+    void PlayerMove()
     {
-        transform.GetChild(0).GetComponent<MeshRenderer>().material.color = Color.blue;
+        Vector3 moveInput = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
+        direction = moveInput.normalized * FL_moveSpeed;
+    }
+
+    void LookInput()
+    {
+        //Look Input
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        Plane grounPlane = new Plane(Vector3.up, Vector3.up);
+        float rayDistance;
+
+        if (grounPlane.Raycast(ray, out rayDistance))
+        {
+            Vector3 point = ray.GetPoint(rayDistance);
+            Vector3 heightCorrectedPoint = new Vector3(point.x, transform.position.y, point.z);
+            transform.LookAt(heightCorrectedPoint);
+        }
     }
 }
