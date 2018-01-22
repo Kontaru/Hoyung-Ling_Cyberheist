@@ -31,7 +31,7 @@ public class Player_Bullet : Bullet
                 Destroy(gameObject);
             }
 
-            Debug.Log("PC Bullet: Hit - " + coll.name);
+
         }
         else
         {
