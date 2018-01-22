@@ -24,7 +24,7 @@ public class PC_Controller : Entity
     ActiveGun activeGun;
 
     [Header("Movement")]
-    float FL_moveSpeed = 20f;
+    float FL_moveSpeed = 10f;
     float FL_defaultSpeed;
 
     // Client Variables
@@ -104,7 +104,7 @@ public class PC_Controller : Entity
         }
 
         PlayerMove();
-        LookInput();
+        //LookInput();
 
         activeGun.Shoot(KeyCode.Space);
 
@@ -121,6 +121,7 @@ public class PC_Controller : Entity
 
     void PlayerMove()
     {
+
         Vector3 moveInput = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
         direction = moveInput.normalized * FL_moveSpeed;
     }

@@ -30,7 +30,9 @@ public class Enemy_Bullet : Bullet
             {
                 Destroy(gameObject);
             }
-    }
+
+            Debug.Log("PC Bullet: Hit - " + coll.name);
+        }
         else
         {
             Debug.Log("Enemy Bullet: Outside Loop");

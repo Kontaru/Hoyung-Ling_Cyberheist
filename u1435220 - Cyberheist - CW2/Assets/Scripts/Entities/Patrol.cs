@@ -68,7 +68,7 @@ public class Patrol : BaseEnemy
                 if (waypoint != null)
                     waypoints.Add(waypoint);
             }
-            current = 0;
+            current = Random.Range(0, waypoints.Count);
 
             //---
             CurrentState = State.Idle;

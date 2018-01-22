@@ -32,7 +32,6 @@ public class ActiveGun : NetworkBehaviour
     // Use this for initialization
     void Start()
     {
-
         if (!isLocalPlayer)
         {
             return;
@@ -85,7 +84,7 @@ public class ActiveGun : NetworkBehaviour
         //    }
         //}
 
-        //UpdateUI();
+        UpdateUI();
     }
 
     //void AcquireNewGun(GameObject newGun)
@@ -94,13 +93,13 @@ public class ActiveGun : NetworkBehaviour
     //    currentGun = GO_currentGun.GetComponent<Weapon>();
     //}
 
-    //void UpdateUI()
-    //{
-    //    nameText.text = currentGun.gun.name;
-    //    clipText.text = string.Format("" + currentGun.gun.clipSize);
-    //    currentClipText.text = string.Format("" + currentGun.currentClipSize);
-    //    ammoText.text = string.Format("" + currentGun.currentAmmo);
-    //}
+    void UpdateUI()
+    {
+        nameText.text = weapon.gun.name;
+        clipText.text = string.Format("" + weapon.gun.clipSize);
+        currentClipText.text = string.Format("" + weapon.currentClipSize);
+        ammoText.text = string.Format("" + weapon.currentAmmo);
+    }
 
     public void Shoot(KeyCode shoot)
     {

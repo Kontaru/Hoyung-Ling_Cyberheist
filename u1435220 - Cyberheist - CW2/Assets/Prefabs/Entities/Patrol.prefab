@@ -36,7 +36,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4660407638504960}
   - component: {fileID: 33997664183358696}
-  - component: {fileID: 65688847886580942}
   - component: {fileID: 23382177503364638}
   m_Layer: 0
   m_Name: Cube
@@ -158,9 +157,9 @@ GameObject:
   - component: {fileID: 136915936989778040}
   - component: {fileID: 195207721212056596}
   - component: {fileID: 114436598951010794}
-  - component: {fileID: 114964171986782658}
   - component: {fileID: 114874136674149712}
   - component: {fileID: 114484011661326076}
+  - component: {fileID: 54252023744369544}
   m_Layer: 0
   m_Name: Patrol
   m_TagString: Untagged
@@ -447,18 +446,21 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1057081967670580}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!65 &65688847886580942
-BoxCollider:
+--- !u!54 &54252023744369544
+Rigidbody:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1057081967670580}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
+  m_GameObject: {fileID: 1695742404059404}
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!108 &108277689540587190
 Light:
   m_ObjectHideFlags: 1
@@ -649,20 +651,6 @@ MonoBehaviour:
     i15: 12
   m_ServerOnly: 0
   m_LocalPlayerAuthority: 1
---- !u!114 &114964171986782658
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1695742404059404}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 843275e82c8102241b8a8f31955c3812, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  destroyOnDeath: 1
-  currentHealth: 100
-  healthBar: {fileID: 224465461820785312}
 --- !u!114 &114976217963743506
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -702,7 +690,7 @@ CapsuleCollider:
   m_Radius: 0.5
   m_Height: 2
   m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!195 &195207721212056596
 NavMeshAgent:
   m_ObjectHideFlags: 1

@@ -192,12 +192,19 @@ abstract public class BaseEnemy : Entity {
     {
         //SpawnBullet
         transform.LookAt(V_Target);
+        if (Vector3.Distance(transform.position, V_Target) > 10.0f)
+        {
+            nav_Agent.isStopped = false;
+            nav_Agent.destination = V_Target;
+        }
+        else nav_Agent.isStopped = true;
+
 
         if (Time.time > FL_Cooldown)
-        {
-            Cmd_FireBullet();
-            FL_Cooldown = Time.time + fl_shotCooldown;
-        }
+            {
+                Cmd_FireBullet();
+                FL_Cooldown = Time.time + fl_shotCooldown;
+            }
 
         //---
         if (Vector3.Distance(transform.position, V_Target) > combatDistance + 5)

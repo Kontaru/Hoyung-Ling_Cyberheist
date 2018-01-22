@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Player_Bullet : Bullet
 {
+
     //---------------------------------------------------------------------------
     //----- Player bullet: only hurts enemies
     //---------------------------------------------------------------------------
@@ -24,10 +25,13 @@ public class Player_Bullet : Bullet
                     //Destroy the bullet
                     Destroy(gameObject);
                 }
-            }else
+            }
+            else
             {
                 Destroy(gameObject);
             }
+
+            Debug.Log("PC Bullet: Hit - " + coll.name);
         }
         else
         {

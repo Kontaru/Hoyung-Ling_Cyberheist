@@ -41,7 +41,6 @@ public class PC_UI : MonoBehaviour
 {
 
     PC_Melee CC_Melee;
-    PC_Move CC_Move;
     PC_Health CC_Health;
 
     public UIElement[] Health;
@@ -67,7 +66,6 @@ public class PC_UI : MonoBehaviour
         }
 
         CC_Melee = GetComponent<PC_Melee>();
-        CC_Move = GetComponent<PC_Move>();
         CC_Health = GetComponent<PC_Health>();
     }
 

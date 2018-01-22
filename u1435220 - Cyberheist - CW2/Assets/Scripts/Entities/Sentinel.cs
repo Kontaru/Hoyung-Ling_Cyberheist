@@ -8,7 +8,9 @@ public class Sentinel : BaseEnemy {
 	// Use this for initialization
 	override public void Start () {
 
+        base.Start();
         BL_startAsCombat = true;
+        CurrentState = State.Hunt;
 	}
 
     [Command]

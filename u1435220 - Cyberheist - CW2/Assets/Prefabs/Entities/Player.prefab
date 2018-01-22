@@ -39,12 +39,9 @@ GameObject:
   - component: {fileID: 114582628214317800}
   - component: {fileID: 114626408764693818}
   - component: {fileID: 195524596801226732}
-  - component: {fileID: 65297926403274786}
   - component: {fileID: 136945916833969786}
   - component: {fileID: 54839931255002756}
-  - component: {fileID: 114612876081160824}
   - component: {fileID: 114066859840184416}
-  - component: {fileID: 114511307890081946}
   - component: {fileID: 114685521379289870}
   - component: {fileID: 114006001203846424}
   - component: {fileID: 114772783167721088}
@@ -98,7 +95,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4374011605382582}
   - component: {fileID: 33600199049797548}
-  - component: {fileID: 65979395695497910}
   - component: {fileID: 23566382062703540}
   m_Layer: 0
   m_Name: Cube
@@ -221,7 +217,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1113894159031948}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.7840624, y: -2.5172123e-17, z: 34.00955}
+  m_LocalPosition: {x: -20.18499, y: -6.1809344e-17, z: 83.50935}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4646728953289758}
@@ -424,30 +420,6 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!65 &65297926403274786
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1113894159031948}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 0
-  serializedVersion: 2
-  m_Size: {x: 1, y: 2, z: 1}
-  m_Center: {x: 0, y: 1, z: 0}
---- !u!65 &65979395695497910
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1513026159064746}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!108 &108011587509943208
 Light:
   m_ObjectHideFlags: 1
@@ -497,7 +469,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   destroyOnDeath: 1
   currentHealth: 100
-  healthBar: {fileID: 224663998276177370}
+  healthBar: {fileID: 224689363960718768}
 --- !u!114 &114066859840184416
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -542,20 +514,6 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
---- !u!114 &114511307890081946
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1113894159031948}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ed794ce3e95a36b488a5ee3736a4a9de, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bulletPrefab: {fileID: 0}
-  bulletSpawn: {fileID: 0}
-  BL_Staggered: 0
 --- !u!114 &114540499420613720
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -609,20 +567,6 @@ MonoBehaviour:
     i15: 145
   m_ServerOnly: 0
   m_LocalPlayerAuthority: 1
---- !u!114 &114612876081160824
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1113894159031948}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 843275e82c8102241b8a8f31955c3812, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  destroyOnDeath: 0
-  currentHealth: 100
-  healthBar: {fileID: 224689363960718768}
 --- !u!114 &114626408764693818
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -688,10 +632,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfc9d26bf313a574a883466ebb8fa4d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gunPosition: {fileID: 0}
+  gunPosition: {fileID: 4703814447975600}
   weapon: {fileID: 0}
   pickup: {fileID: 0}
-  fallback: {fileID: 0}
+  fallback: {fileID: 114908349205960750, guid: 900a47ea348b19940bd4814bb2316a5b, type: 2}
   missilePrefab: {fileID: 0}
   missileEject: {fileID: 0}
   triggerPulled: 0
@@ -825,7 +769,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 1.5}
+  m_AnchoredPosition: {x: 0, y: 2.5}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224689363960718768
