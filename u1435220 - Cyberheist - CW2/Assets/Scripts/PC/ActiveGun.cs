@@ -47,20 +47,23 @@ public class ActiveGun : NetworkBehaviour
             return;
         }
 
-        if (weapon == null)
+        if (pickup != null)
         {
-            if (pickup != null)
-            {
-                weapon = pickup;
-                pickup = null;
-            }
-            else if (fallback != null) weapon = fallback;
-            else return;
-
+            weapon = pickup;
+            pickup = null;
             weapon = (Weapon)Instantiate(weapon, gunPosition.position, gunPosition.rotation);
             weapon.transform.parent = transform;
         }
-
+        else if (fallback != null && weapon == null)
+        {
+            weapon = fallback;
+            weapon = (Weapon)Instantiate(weapon, gunPosition.position, gunPosition.rotation);
+            weapon.transform.parent = transform;
+        }
+        else if (weapon == null)
+        {
+            return;
+        }
         //if (GO_currentGun == null)
         //{
         //    GO_currentGun = GO_defaultGun;

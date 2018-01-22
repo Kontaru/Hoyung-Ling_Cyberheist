@@ -104,7 +104,6 @@ public class PC_Controller : Entity
         }
 
         PlayerMove();
-        //LookInput();
 
         activeGun.Shoot(KeyCode.Space);
 
