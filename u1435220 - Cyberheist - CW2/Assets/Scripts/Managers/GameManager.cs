@@ -19,11 +19,6 @@ public class GameManager : MonoBehaviour
 
     public GameObject[] GO_Player = new GameObject[2];
 
-    [Header("Lights")]
-    public Light DirectionalLight;
-    [Range(0, 1)]
-    public float FL_DirLight;
-
     [Header("PlayerUI")]
 
     #region --- Event Params ---
@@ -55,32 +50,9 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
     }
 
     #region ~ Scene Related ~
-
-    public void NextScene()
-    {
-        if (SceneManager.GetActiveScene().buildIndex < 2)
-        {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1, LoadSceneMode.Single);
-        }
-        else
-        {
-            SceneManager.LoadScene(0, LoadSceneMode.Single);
-        }
-    }
-
-    public void LoadScene(int index)
-    {
-        SceneManager.LoadScene(index, LoadSceneMode.Single);
-    }
-
-    public void EndGame()
-    {
-        Application.Quit();
-    }
 
     IEnumerator PauseGame(float delay)
     {

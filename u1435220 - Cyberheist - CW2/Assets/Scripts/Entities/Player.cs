@@ -9,6 +9,7 @@ public class Player : Entity
     public GameObject bulletPrefab;
     public Transform bulletSpawn;
     public bool localPlayer = false;
+    public string newSceneName;
 
     void Start()
     {
