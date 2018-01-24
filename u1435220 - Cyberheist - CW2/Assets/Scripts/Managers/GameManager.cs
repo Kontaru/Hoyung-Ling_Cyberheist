@@ -50,7 +50,6 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        SkyboxOff();
     }
 
     // Update is called once per frame
@@ -60,16 +59,6 @@ public class GameManager : MonoBehaviour
     }
 
     #region ~ Scene Related ~
-
-    //Just so that, whilst we're working on the scene (not playing), we know what everything looks like.
-    void SkyboxOff()
-    {
-        //Skybox
-        RenderSettings.ambientIntensity = 0f;
-        RenderSettings.reflectionIntensity = 0f;
-        //"Sun"
-        DirectionalLight.intensity = FL_DirLight;
-    }
 
     public void NextScene()
     {

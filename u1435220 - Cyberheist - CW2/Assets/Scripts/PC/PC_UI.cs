@@ -40,7 +40,6 @@ public class UIElement
 public class PC_UI : MonoBehaviour
 {
 
-    PC_Melee CC_Melee;
     PC_Health CC_Health;
 
     public UIElement[] Health;
@@ -65,7 +64,6 @@ public class PC_UI : MonoBehaviour
             element.SetStates();
         }
 
-        CC_Melee = GetComponent<PC_Melee>();
         CC_Health = GetComponent<PC_Health>();
     }
 

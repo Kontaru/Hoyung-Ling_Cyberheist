@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityStandardAssets.CrossPlatformInput;
 
 public class PC_Controller : Entity
 {
@@ -10,18 +11,13 @@ public class PC_Controller : Entity
     //----- The brain of the PC: handles all the other functions in its system
     //---------------------------------------------------------------------------
 
-    //Bool
+    public static GameObject playerLook;
 
-    public bool BL_Staggered = false;
-    public bool BL_StaggerToggle = false;
-    public float FL_StaggerTimer = 1.0f;
-    public bool BL_IsMoving;
-
-    public bool BL_Moving;
     Rigidbody RB_PC;
     Vector3 direction;
 
     ActiveGun activeGun;
+    AMPunch amPunch;
 
     [Header("Movement")]
     float FL_moveSpeed = 10f;
@@ -58,24 +54,6 @@ public class PC_Controller : Entity
             }
         }
 
-        ////For the current index, if it's empty
-        //if (GameManager.instance.GO_Player[0] == null)
-        //{
-        //    //Make the gameobject this, and quit the cycle of sadness
-        //    GameManager.instance.GO_Player[0] = gameObject;
-        //    Debug.Log("Player added");
-        //}
-        //else if (GameManager.instance.GO_Player[1] == null)
-        //{
-        //    //Make the gameobject this, and quit the cycle of sadness
-        //    GameManager.instance.GO_Player[0] = gameObject;
-        //    Debug.Log("Player added");
-        //}
-        //else
-        //{
-        //    Debug.Log("No player added: too many players");
-        //}
-
         //If the camera is local player
         if (isLocalPlayer)
         {
@@ -87,6 +65,7 @@ public class PC_Controller : Entity
         }
 
         activeGun = GetComponent<ActiveGun>();
+        amPunch = GetComponent<AMPunch>();
         RB_PC = GetComponent<Rigidbody>();
         FL_defaultSpeed = FL_moveSpeed;
 
@@ -103,9 +82,13 @@ public class PC_Controller : Entity
             return;
         }
 
-        PlayerMove();
+        if (amPunch.BL_SlowDown)
+            FL_moveSpeed = 2.0f;
+        else
+            FL_moveSpeed = FL_defaultSpeed;
 
-        activeGun.Shoot(KeyCode.Space);
+        PlayerMove();
+        PlayerLook();
 
         if (Input.GetKeyDown(KeyCode.Q))
         {
@@ -120,23 +103,18 @@ public class PC_Controller : Entity
 
     void PlayerMove()
     {
-
-        Vector3 moveInput = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
+        Vector3 moveInput = new Vector3(CrossPlatformInputManager.GetAxis("Horizontal"), 0, CrossPlatformInputManager.GetAxis("Vertical"));
         direction = moveInput.normalized * FL_moveSpeed;
     }
 
-    void LookInput()
+    void PlayerLook()
     {
-        //Look Input
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        Plane grounPlane = new Plane(Vector3.up, Vector3.up);
-        float rayDistance;
-
-        if (grounPlane.Raycast(ray, out rayDistance))
+        playerLook.transform.position = transform.position;
+        Vector3 lookInput = new Vector3(CrossPlatformInputManager.GetAxis("LookHorizontal"), 0, CrossPlatformInputManager.GetAxis("LookVertical"));
+        if (lookInput != new Vector3(0, 0, 0))
         {
-            Vector3 point = ray.GetPoint(rayDistance);
-            Vector3 heightCorrectedPoint = new Vector3(point.x, transform.position.y, point.z);
-            transform.LookAt(heightCorrectedPoint);
+            playerLook.transform.GetChild(0).localPosition = lookInput.normalized;
+            transform.LookAt(playerLook.transform.GetChild(0));
         }
     }
 }

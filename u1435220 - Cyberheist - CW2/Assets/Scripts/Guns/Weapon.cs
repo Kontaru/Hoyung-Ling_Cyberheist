@@ -63,7 +63,7 @@ public class Weapon : NetworkBehaviour {
     {
         clipEmpty = true;
         yield return new WaitForSeconds(gun.reloadTime);
-        if (reload == true)
+        if (reload || !shoot)
         {
             int difference = currentAmmo - gun.clipSize;
             if (difference >= 0)

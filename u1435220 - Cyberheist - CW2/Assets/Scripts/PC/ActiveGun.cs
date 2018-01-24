@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityStandardAssets.CrossPlatformInput;
 using UnityEngine.UI;
 using TMPro;
 
 public class ActiveGun : NetworkBehaviour
 {
-
     public Transform gunPosition;
     public Weapon weapon;
     public Weapon pickup;
@@ -49,21 +49,24 @@ public class ActiveGun : NetworkBehaviour
 
         if (pickup != null)
         {
+            Destroy(weapon.gameObject);
             weapon = pickup;
             pickup = null;
-            weapon = (Weapon)Instantiate(weapon, gunPosition.position, gunPosition.rotation);
-            weapon.transform.parent = transform;
+            Cmd_SpawnGun();
         }
         else if (fallback != null && weapon == null)
         {
             weapon = fallback;
-            weapon = (Weapon)Instantiate(weapon, gunPosition.position, gunPosition.rotation);
-            weapon.transform.parent = transform;
+            Cmd_SpawnGun();
         }
         else if (weapon == null)
         {
             return;
         }
+
+        triggerPulled = CrossPlatformInputManager.GetButton("Shoot");
+        weapon.shoot = triggerPulled;
+
         //if (GO_currentGun == null)
         //{
         //    GO_currentGun = GO_defaultGun;
@@ -90,24 +93,12 @@ public class ActiveGun : NetworkBehaviour
         UpdateUI();
     }
 
-    //void AcquireNewGun(GameObject newGun)
-    //{
-    //    GO_currentGun = newGun;
-    //    currentGun = GO_currentGun.GetComponent<Weapon>();
-    //}
-
     void UpdateUI()
     {
         nameText.text = weapon.gun.name;
         clipText.text = string.Format("" + weapon.gun.clipSize);
         currentClipText.text = string.Format("" + weapon.currentClipSize);
         ammoText.text = string.Format("" + weapon.currentAmmo);
-    }
-
-    public void Shoot(KeyCode shoot)
-    {
-        if (Input.GetKeyDown(shoot)) weapon.shoot = true;
-        else weapon.shoot = false;
     }
 
     public void Missile()
@@ -123,5 +114,14 @@ public class ActiveGun : NetworkBehaviour
             missileEject.transform.rotation);
 
         NetworkServer.Spawn(_bullet);
+    }
+
+    [Command]
+    void Cmd_SpawnGun()
+    {
+        var gun = (Weapon)Instantiate(weapon, gunPosition.position, gunPosition.rotation);
+        NetworkServer.Spawn(gun.gameObject);
+        weapon = gun;
+        weapon.transform.parent = transform;
     }
 }

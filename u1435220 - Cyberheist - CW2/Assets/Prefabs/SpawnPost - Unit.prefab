@@ -4001,6 +4001,8 @@ MonoBehaviour:
     type: 2}
   pos: {x: 0, y: 0, z: 0}
   rot: {x: 0, y: 0, z: 0, w: 0}
+  currentCount: 0
+  spawnLimit: 1
 --- !u!114 &114217949863713696
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4013,6 +4015,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stayDuration: 1
+  position: {x: 0, y: 0, z: 0}
 --- !u!114 &114938890937717144
 MonoBehaviour:
   m_ObjectHideFlags: 1
