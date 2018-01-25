@@ -110,6 +110,12 @@ public class ActiveGun : NetworkBehaviour
     void Cmd_SpawnGun()
     {
         var gun = (Weapon)Instantiate(weapon, gunPosition.position, gunPosition.rotation);
+
+        if (gun == null)     
+        {         
+            // Find it again
+        }         
+
         NetworkServer.Spawn(gun.gameObject);
         weapon = gun;
         weapon.transform.parent = transform;
