@@ -29,20 +29,30 @@ public class Rocket_Bullet : Bullet {
         //If there is a collider
         if (coll != null)
         {
-            if (coll.gameObject.GetComponent<Entity>() != null)
+            var possibleTargets = Physics.OverlapSphere(transform.position, 10);
+            List<Entity> entities = new List<Entity>();
+            foreach (var target in possibleTargets)
+            {
+                Entity entity = target.GetComponent<Entity>();
+
+                if (entity != null)
+                    entities.Add(entity);
+            }
+
+            foreach (Entity target in entities)
             {
                 //If the collider is player
-                if (coll.gameObject.GetComponent<Entity>().EntityType == Entity.Entities.Player)
+                if (target.EntityType == Entity.Entities.Player)
                 {
                     //Send damage depending on what kind of enemy has been hit
-                    coll.gameObject.SendMessage("TakeDamage", damage / 2, SendMessageOptions.DontRequireReceiver);
+                    target.gameObject.SendMessage("TakeDamage", damage / 2, SendMessageOptions.DontRequireReceiver);
                     //Destroy the bullet
                     Destroy(gameObject);
                 }
-                else if (coll.gameObject.GetComponent<Entity>().EntityType == Entity.Entities.Enemy)
+                else if (target.GetComponent<Entity>().EntityType == Entity.Entities.Enemy)
                 {
                     //Send damage depending on what kind of enemy has been hit
-                    coll.gameObject.SendMessage("TakeDamage", damage * 2, SendMessageOptions.DontRequireReceiver);
+                    target.gameObject.SendMessage("TakeDamage", damage * 2, SendMessageOptions.DontRequireReceiver);
                     //Destroy the bullet
                     Destroy(gameObject);
                 }
@@ -51,10 +61,10 @@ public class Rocket_Bullet : Bullet {
                     Debug.Log("Enemy Bullet: Outside Loop");
                     Destroy(gameObject);
                 }
-            }else
-            {
-                Destroy(gameObject);
+                
             }
+
+            Destroy(gameObject);
         }
     }
 }

@@ -20,6 +20,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4957022091852618}
   - component: {fileID: 114509247695932734}
+  - component: {fileID: 114660685902872920}
+  - component: {fileID: 65886483132714648}
   m_Layer: 0
   m_Name: SpawnPost - Sentinel
   m_TagString: Untagged
@@ -38,9 +40,9 @@ GameObject:
   - component: {fileID: 114489923743928230}
   - component: {fileID: 23601685350212724}
   - component: {fileID: 33546010016490274}
+  - component: {fileID: 114778464228090708}
   - component: {fileID: 114860122497069670}
   - component: {fileID: 64195963530163994}
-  - component: {fileID: 114621097723454782}
   m_Layer: 0
   m_Name: Cylinder
   m_TagString: Untagged
@@ -130,6 +132,18 @@ MeshCollider:
   m_CookingOptions: 14
   m_SkinWidth: 0.01
   m_Mesh: {fileID: 0}
+--- !u!65 &65886483132714648
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1062145152423990}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!114 &114489923743928230
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -159,12 +173,12 @@ MonoBehaviour:
   rot: {x: 0, y: 0, z: 0, w: 0}
   currentCount: 0
   spawnLimit: 2
---- !u!114 &114621097723454782
+--- !u!114 &114660685902872920
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1446439399076774}
+  m_GameObject: {fileID: 1062145152423990}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7a6b51e4bb01f034abcf6d17455ac90e, type: 3}
@@ -172,6 +186,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stayDuration: 1
   position: {x: 0, y: 0, z: 0}
+--- !u!114 &114778464228090708
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1446439399076774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 932f598e86a230b4fa86a326d0bb8491, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114860122497069670
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -15,8 +15,10 @@ public class ActiveGun : NetworkBehaviour
 
     public GameObject missilePrefab;
     public GameObject missileEject;
+    float missileCooldown = 0;
 
-    public bool triggerPulled = false;
+    bool triggerPulled = false;
+    bool fireMissile = false;
 
     float coolDown = 0;
 
@@ -64,31 +66,19 @@ public class ActiveGun : NetworkBehaviour
             return;
         }
 
+        /*if (Application.platform == RuntimePlatform.WindowsPlayer)
+            triggerPulled = Input.GetKeyDown("Space");
+        else if (Application.platform == RuntimePlatform.Android)*/
         triggerPulled = CrossPlatformInputManager.GetButton("Shoot");
         weapon.shoot = triggerPulled;
 
-        //if (GO_currentGun == null)
-        //{
-        //    GO_currentGun = GO_defaultGun;
-        //    currentGun = GO_currentGun.GetComponent<Weapon>();
-        //}
-        //else if (GO_currentGun.GetComponent<Weapon>().empty)
-        //{
-        //    Destroy(GO_currentGun);
-        //}
+        fireMissile = CrossPlatformInputManager.GetButton("Missile");
 
-        //GO_currentGun.transform.position = gunPosition.position;
-
-        //currentGun.CheckAmmo();
-
-        //if (triggerPulled == true && currentGun.clipEmpty == false)
-        //{
-        //    if (coolDown < Time.time)
-        //    {
-        //        Cmd_FireBullet();
-        //        coolDown = currentGun.ApplyCooldown(coolDown);
-        //    }
-        //}
+        if(fireMissile && Time.time > missileCooldown)
+        {
+            missileCooldown = Time.time + 5f;
+            Cmd_FireMissile();
+        }
 
         UpdateUI();
     }

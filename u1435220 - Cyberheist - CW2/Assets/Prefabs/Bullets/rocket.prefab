@@ -217,7 +217,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 1
-  damage: 10
+  damage: 40
   killAfter: 5
   sound: 
 --- !u!114 &114470958427050570

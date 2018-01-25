@@ -20,6 +20,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4895142216434820}
   - component: {fileID: 114279554232446956}
+  - component: {fileID: 114563690899386226}
+  - component: {fileID: 65505103158672046}
   m_Layer: 0
   m_Name: SpawnPost - Patrol
   m_TagString: Untagged
@@ -38,9 +40,9 @@ GameObject:
   - component: {fileID: 114401606325323364}
   - component: {fileID: 23374776240666246}
   - component: {fileID: 33224275247513014}
+  - component: {fileID: 114719898807787676}
   - component: {fileID: 114052168046860926}
   - component: {fileID: 64823420079779850}
-  - component: {fileID: 114070090153615324}
   m_Layer: 0
   m_Name: Cylinder
   m_TagString: Untagged
@@ -130,6 +132,18 @@ MeshCollider:
   m_CookingOptions: 14
   m_SkinWidth: 0.01
   m_Mesh: {fileID: 0}
+--- !u!65 &65505103158672046
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1254706467836330}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!114 &114052168046860926
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3986,19 +4000,6 @@ MonoBehaviour:
   m_selectedFaces: 
   m_SelectedEdges: []
   m_selectedTriangles: 
---- !u!114 &114070090153615324
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1880353312297098}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a6b51e4bb01f034abcf6d17455ac90e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  stayDuration: 1
-  position: {x: 0, y: 0, z: 0}
 --- !u!114 &114279554232446956
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4028,3 +4029,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _entityType: 0
+--- !u!114 &114563690899386226
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1254706467836330}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a6b51e4bb01f034abcf6d17455ac90e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stayDuration: 1
+  position: {x: 0, y: 0, z: 0}
+--- !u!114 &114719898807787676
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1880353312297098}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 932f598e86a230b4fa86a326d0bb8491, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
