@@ -20,16 +20,6 @@ public class SceneManager : NetworkBehaviour {
         DontDestroyOnLoad(transform.gameObject);
     }
 
-    // Use this for initialization
-    void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-
-    }
-
     [ServerCallback]
     public void LoadOnline(string sceneName)
     {

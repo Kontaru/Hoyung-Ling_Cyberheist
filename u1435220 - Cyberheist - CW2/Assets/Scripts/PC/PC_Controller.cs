@@ -89,15 +89,16 @@ public class PC_Controller : Entity
 
         PlayerMove();
         PlayerLook();
-
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            activeGun.Missile();
-        }
     }
 
     private void FixedUpdate()
     {
+        if (!isLocalPlayer)
+        {
+            return;
+        }
+
+
         RB_PC.MovePosition(transform.position + direction * Time.fixedDeltaTime);
     }
 

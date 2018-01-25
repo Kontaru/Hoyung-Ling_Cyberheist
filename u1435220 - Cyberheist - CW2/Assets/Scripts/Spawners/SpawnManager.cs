@@ -30,11 +30,6 @@ public class SpawnManager : NetworkBehaviour
         DontDestroyOnLoad(transform.gameObject);
     }
 
-    void Start()
-    {
-        
-    }
-
     void Update()
     {
         if (!isServer) return;
