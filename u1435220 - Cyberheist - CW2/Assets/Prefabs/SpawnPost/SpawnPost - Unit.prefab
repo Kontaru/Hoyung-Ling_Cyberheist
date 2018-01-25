@@ -4027,7 +4027,7 @@ MonoBehaviour:
   pos: {x: 0, y: 0, z: 0}
   rot: {x: 0, y: 0, z: 0, w: 0}
   currentCount: 0
-  spawnLimit: 1
+  spawnLimit: 2
 --- !u!114 &114219849534502824
 MonoBehaviour:
   m_ObjectHideFlags: 1
