@@ -32,6 +32,7 @@ abstract public class BaseEnemy : Entity {
     public float combatDistance;
 
     protected bool BL_startAsCombat = false;
+    protected static bool BL_allCombat = false;
     protected Vector3 V_Target;
     protected Vector3 V_Home;
     protected GameObject GO_Target;
@@ -181,7 +182,7 @@ abstract public class BaseEnemy : Entity {
 
         //---
         if (Vector3.Distance(transform.position, V_Target) < combatDistance) CurrentState = State.Combat;
-        else if (Vector3.Distance(transform.position, V_Target) > huntDistance + 5 && !BL_startAsCombat)
+        else if (Vector3.Distance(transform.position, V_Target) > huntDistance + 5 && !BL_startAsCombat && !BL_allCombat)
         {
             nav_Agent.destination = V_Home;
             CurrentState = State.Idle;
@@ -191,6 +192,7 @@ abstract public class BaseEnemy : Entity {
     virtual public void Combat()
     {
         //SpawnBullet
+        BL_allCombat = true;
         transform.LookAt(V_Target);
         if (Vector3.Distance(transform.position, V_Target) > 10.0f)
         {

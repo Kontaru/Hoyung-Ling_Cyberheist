@@ -53,7 +53,7 @@ public class Patrol : BaseEnemy
         nav_Agent.destination = V_Target;
 
         if (Vector3.Distance(transform.position, V_Target) < combatDistance) CurrentState = State.Combat;
-        else if (Vector3.Distance(transform.position, V_Target) > huntDistance + 5 && !BL_startAsCombat)
+        else if (Vector3.Distance(transform.position, V_Target) > huntDistance + 5 && !BL_startAsCombat && !BL_allCombat)
         {
             nav_Agent.destination = V_Home;
 
